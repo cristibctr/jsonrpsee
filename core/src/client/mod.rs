@@ -143,22 +143,22 @@ pub trait SubscriptionClientT: ClientT {
 }
 
 /// Marker trait to determine whether a type implements `Send` or not.
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", not(target_vendor = "wasmer")))]
 pub trait MaybeSend {}
 
 /// Marker trait to determine whether a type implements `Send` or not.
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), target_vendor = "wasmer"))]
 pub trait MaybeSend: Send {}
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), target_vendor = "wasmer"))]
 impl<T: Send> MaybeSend for T {}
 
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", not(target_vendor = "wasmer")))]
 impl<T> MaybeSend for T {}
 
 /// Transport interface to send data asynchronous.
-#[cfg_attr(target_arch = "wasm32", async_trait(?Send))]
-#[cfg_attr(not(target_arch = "wasm32"), async_trait)]
+#[cfg_attr(all(target_arch = "wasm32", not(target_vendor = "wasmer")), async_trait(?Send))]
+#[cfg_attr(any(not(target_arch = "wasm32"), target_vendor = "wasmer"), async_trait)]
 pub trait TransportSenderT: MaybeSend + 'static {
 	/// Error that may occur during sending a message.
 	type Error: std::error::Error + Send + Sync;
@@ -196,8 +196,8 @@ pub enum ReceivedMessage {
 }
 
 /// Transport interface to receive data asynchronous.
-#[cfg_attr(target_arch = "wasm32", async_trait(?Send))]
-#[cfg_attr(not(target_arch = "wasm32"), async_trait)]
+#[cfg_attr(all(target_arch = "wasm32", not(target_vendor = "wasmer")), async_trait(?Send))]
+#[cfg_attr(any(not(target_arch = "wasm32"), target_vendor = "wasmer"), async_trait)]
 pub trait TransportReceiverT: 'static {
 	/// Error that may occur during receiving a message.
 	type Error: std::error::Error + Send + Sync;
