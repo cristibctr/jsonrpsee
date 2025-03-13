@@ -29,7 +29,7 @@
 #![warn(missing_docs, missing_debug_implementations, missing_copy_implementations, unreachable_pub)]
 #![cfg_attr(not(test), warn(unused_crate_dependencies))]
 #![cfg_attr(docsrs, feature(doc_cfg))]
-#![cfg(target_arch = "wasm32")]
+#![cfg(all(target_arch = "wasm32", not(target_vendor = "wasmer")))]
 
 pub use jsonrpsee_core::client::Client;
 pub use jsonrpsee_types as types;

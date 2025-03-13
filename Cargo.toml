@@ -72,7 +72,7 @@ serde_json = { version = "1", default-features = false, features = ["alloc", "ra
 soketto = "0.8.1"
 syn = { version = "2", default-features = false }
 thiserror = "2"
-tokio = "1.41.1"
+tokio = { version = "1.41.1", features = ["default", "fs"] }
 tokio-rustls = { version = "0.26", default-features = false }
 tokio-stream = "0.1.7"
 tokio-util = "0.7"
@@ -92,3 +92,29 @@ pprof = { version = "0.14", features = ["flamegraph", "criterion"] }
 socket2 = "0.5.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 trybuild = "1.0.97"
+
+#Most are probably not needed here
+[patch.crates-io]
+c-kzg = {path = "../c-kzg-4844"}
+tokio = { git = "https://github.com/cristibctr/tokio-wasix", branch = "wasix-1.41.1" }
+socket2 = { git = "https://github.com/cristibctr/socket2.git", branch = "v0.6.0" }
+hostname = { path = "../hostname"}
+libc = { git = "https://github.com/cristibctr/libc-0.2.169", branch = "wasix-0.2.169" }
+metrics-process = { git = "https://github.com/cristibctr/rs-metrics-process", branch = "feat/add-wasm-support" }
+rustls-platform-verifier = { version = "=0.5", optional = false, path = "../rustls-platform-verifier/rustls-platform-verifier" }
+jsonrpsee = { git = "https://github.com/cristibctr/jsonrpsee", rev = "v0.24.9" }
+jsonrpsee-core = { git = "https://github.com/cristibctr/jsonrpsee", rev = "v0.24.9" }
+jsonrpsee-server = { git = "https://github.com/cristibctr/jsonrpsee", rev = "v0.24.9" }
+jsonrpsee-http-client = { git = "https://github.com/cristibctr/jsonrpsee", rev = "v0.24.9" }
+jsonrpsee-types = { git = "https://github.com/cristibctr/jsonrpsee", rev = "v0.24.9" }
+getrandom = { git = "https://github.com/cristibctr/getrandom", branch = "feat/add-wasm-support-0.3.1" }
+procfs = { git = "https://github.com/cristibctr/procfs", branch = "feat/add-wasm-support" }
+rustix = { git = "https://github.com/cristibctr/rustix", branch = "feat/add-wasm-support" }
+crossterm = { git = "https://github.com/cristibctr/crossterm", branch = "feat/add-wasm-support" }
+mio = { git = "https://github.com/cristibctr/mio", branch = "v1.0.1" }
+parking_lot = { git = "https://github.com/cristibctr/parking_lot", branch = "master" }
+reqwest = { git = "https://github.com/cristibctr/reqwest", branch = "master" }
+hyper-util = { git = "https://github.com/cristibctr/hyper-util", branch = "master" }
+discv5 = { git = "https://github.com/cristibctr/discv5", rev = "v0.8.1" }
+interprocess = { git = "https://github.com/cristibctr/interprocess", branch = "main" }
+hickory-resolver = { git = "https://github.com/cristibctr/hickory-dns", branch = "v0.25.0-alpha.5" }
